@@ -1,0 +1,20 @@
+text/plain; $PAGER %s ;
+#text/html; openfile %s ; nametemplate=%s.html
+text/html; lynx -assume_charset=%{charset} -display_charset=utf-8 -dump %s; nametemplate=%s.html; copiousoutput;
+image/*; nsxiv %s ;
+video/*; setsid mpv --quiet %s &; copiousoutput
+audio/*; mpv %s ;
+application/pdf; zathura '%s'
+application/pgp-encrypted; gpg -d '%s'; copiousoutput;
+application/pgp-keys; gpg --import '%s'; copiousoutput;
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; libreoffice '%s';
+application/vnd.openxmlformats-officedocument.wordprocessingml.document; libreoffice '%s';
+application/msword; libreoffice '%s';
+application/tlsrpt+gzip; zcat '%s' | jq . ; copiousoutput;
+message/disposition-notification; cat '%s' ; copiousoutput;
+application/zip; unzip -l '%s' ; copiousoutput;
+application/x-zip-compressed; unzip -l '%s' ; copiousoutput;
+application/x-tar; tar -tf '%s' ; copiousoutput;
+application/x-gzip; tar -tf '%s' ; copiousoutput;
+application/x-dosexec; xxd '%s' ; copiousoutput;
+application/octet-stream; xxd '%s' ; copiousoutput;

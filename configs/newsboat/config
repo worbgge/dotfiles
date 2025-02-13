@@ -1,0 +1,89 @@
+#                                     ██                           ██
+#                                    ░██                          ░██
+# ███████   █████  ███     ██  ██████░██       ██████   ██████   ██████
+#░░██░░░██ ██░░░██░░██  █ ░██ ██░░░░ ░██████  ██░░░░██ ░░░░░░██ ░░░██░
+# ░██  ░██░███████ ░██ ███░██░░█████ ░██░░░██░██   ░██  ███████   ░██
+# ░██  ░██░██░░░░  ░████░████ ░░░░░██░██  ░██░██   ░██ ██░░░░██   ░██
+# ███  ░██░░██████ ███░ ░░░██ ██████ ░██████ ░░██████ ░░████████  ░░██
+#░░░   ░░  ░░░░░░ ░░░    ░░░ ░░░░░░  ░░░░░    ░░░░░░   ░░░░░░░░    ░░
+#
+#  ▓▓▓▓▓▓▓▓▓▓
+# ░▓ author ▓ worbgge <me@worbgge.xyz>
+# ░▓▓▓▓▓▓▓▓▓▓
+#  ░░░░░░░░░░
+
+# general settings
+auto-reload yes
+reload-threads 10
+always-display-description yes
+use-proxy no
+proxy-type socks5
+proxy 127.0.0.1:9050
+download-retries 4
+articlelist-title-format "%N %V - '%T' (%u unread, %t total)"
+text-width 79
+confirm-mark-feed-read no
+
+# colours
+include /usr/share/doc/newsboat/contrib/colorschemes/gruvbox
+
+color listnormal cyan default
+color listfocus black yellow standout bold
+color listnormal_unread blue default
+color listfocus_unread yellow default bold
+color info red black bold
+color article white default bold
+
+highlight all "---.*---" yellow
+highlight feedlist ".*(0/0))" black
+highlight article "(^Feed:.*|^Title:.*|^Author:.*)" cyan default bold
+highlight article "(^Link:.*|^Date:.*)" default default
+highlight article "https?://[^ ]+" green default
+highlight article "^(Title):.*$" blue default
+highlight article "\\[[0-9][0-9]*\\]" magenta default bold
+highlight article "\\[image\\ [0-9]+\\]" green default bold
+highlight article "\\[embedded flash: [0-9][0-9]*\\]" green default bold
+highlight article ":.*\\(link\\)$" cyan default
+highlight article ":.*\\(image\\)$" blue default
+highlight article ":.*\\(embedded flash\\)$" magenta default
+
+# macros
+bind-key j down
+bind-key k up
+bind-key J next-feed articlelist
+bind-key K prev-feed articlelist
+bind-key G end
+bind-key g home
+bind-key n next-unread
+bind-key N prev-unread
+
+browser linkhandler
+
+#macro , open-in-browser
+macro a set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best" ; open-in-browser ; set browser linkhandler
+macro m set browser "setsid -f mpv --player-operation-mode=pseudo-gui --terminal=no" ; open-in-browser ; set browser linkhandler
+macro f set browser "setsid readable %u | lynx -stdin"; open-in-browser
+macro n open-all-unread-in-browser
+
+# Key bindings
+bind-key j down feedlist
+bind-key k up feedlist
+bind-key j next articlelist
+bind-key k prev articlelist
+bind-key J next-feed articlelist
+bind-key K prev-feed articlelist
+bind-key j down article
+bind-key k up article
+bind-key B bookmark article
+bind-key o open-in-browser-and-mark-read
+bind-key U show-urls
+
+# ignore articles
+ignore-article "*" "title =~ \"Sponsor\""
+ignore-article "*" "title =~ \"Advertisement\""
+
+# Notification
+notify-always yes
+notify-screen yes
+notify-format  "%I %d %n %f new articles (%n unread articles, %f unread feeds)"
+notify-program notify-send

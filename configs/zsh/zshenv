@@ -1,0 +1,8 @@
+# ~/.zshenv should only be a one-liner that sources this file
+# # echo "source ~/.config/zsh/zshenv" >| ~/.zshenv
+#
+ export ZDOTDIR=~/.config/zsh
+ export HISTFILE=~/.local/share/zsh/history
+
+# Ensure that a non-login, non-interactive shell has a defined environment.
+source "${ZDOTDIR:-$HOME}/zprofile"

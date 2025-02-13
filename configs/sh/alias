@@ -1,0 +1,79 @@
+#            ██ ██
+#           ░██░░
+#  ██████   ░██ ██  ██████    ██████
+# ░░░░░░██  ░██░██ ░░░░░░██  ██░░░░
+#  ███████  ░██░██  ███████ ░░█████
+# ██░░░░██  ░██░██ ██░░░░██  ░░░░░██
+#░░████████ ███░██░░████████ ██████
+# ░░░░░░░░ ░░░ ░░  ░░░░░░░░ ░░░░░░
+#
+#  ▓▓▓▓▓▓▓▓▓▓
+# ░▓ author ▓ worbgge <me@worbgge.xyz>
+# ░▓▓▓▓▓▓▓▓▓▓
+#  ░░░░░░░░░░
+
+# sudo not required for some system commands
+for command in mount umount sv pacman updatedb su shutdown poweroff reboot beet ; do
+	alias $command="sudo $command"
+done; unset command
+
+# Use neovim for vim if present.
+[ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
+
+# general
+alias inet="curl -s https://ifconfig.co/json | jq ."
+alias speedtest='curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python - '
+alias clbin='curl -F "clbin=<-" https://clbin.com'
+alias archlinux-fix-keys="sudo pacman-key --init && sudo pacman-key --populate archlinux && sudo pacman-key --refresh-keys"
+
+# ytdlp
+alias ytdl="yt-dlp"
+alias ytdla="yt-dlp -x -f bestaudio/best"
+
+# games
+alias steam='steam steam://open/minigameslist'
+
+# shell shortcuts
+alias ip='ip -color=auto'
+alias ls='eza --sort=extension --color=auto'
+alias ll='eza -lhF'
+alias lal='eza -alhF'
+alias la='eza -aF'
+alias l='eza -F'
+alias psg='ps -A | grep'
+alias m='make && sudo make install'
+alias cp='cp -iv'
+alias mv='mv -iv'
+alias rm='rm -i'
+alias v='nvim'
+alias pac='pacman'
+alias ka='killall'
+alias sudo='sudo '
+alias key='screenkey'
+alias count='find . -type f | wc -l'
+alias pacup="sudo pacman -Syu"
+alias aup="pamac upgrade --aur"
+alias fstab="sudo nvim /etc/fstab"
+alias grep='grep --color=auto'
+alias meminfo='free -m -l -t'
+alias cpuinfo='lscpu'
+alias week='date +%V'
+alias nf='neofetch'
+alias wget-web='wget -mkEpnp'
+alias memsort='free -h && echo '' && ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem | head'
+alias lf='lfub'
+alias audio='systemctl --user restart wireplumber pipewire pipewire-pulse'
+
+# fun
+alias parrot='curl parrot.live'
+
+# GPG
+alias mygpg='gpg --list-secret-keys --keyid-format=LONG'
+alias gpgc='gpg --recipient $GPGKEY --encrypt'
+alias gpgdp='gpg --delete-keys'
+alias gpgds='gpg --delete-secret-keys'
+alias gpge='gpg --edit-key'
+alias gpgg='gpg --full-generate-key'
+alias gpglp='gpg --list-keys'
+alias gpgls='gpg -K'
+alias gpgr='gpg-connect-agent reloadagent /bye'
